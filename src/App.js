@@ -1,23 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
+import NavBar from "./components/Navbar.js";
+import Accordion from 'react-bootstrap/Accordion';
 
 function App() {
+  const [users,setUsers] = useState(null);
+  useEffect(()=>{
+    fetch(`https://jsonplaceholder.typicode.com/users`)
+    .then(data => data.json())
+    .then(data => {
+      setUsers(data);
+    });
+  },[]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NavBar />
+      <div className="container">
+         { (users) ?
+             users.map(user =>{
+                return (
+                  <Accordion defaultActiveKey="0">
+                    <Accordion.Item eventKey="0">
+                      <Accordion.Header>{user.name}</Accordion.Header>
+                      <Accordion.Body>
+                            {user.email}<br />{user.address.city}<br />{user.phone}
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  </Accordion>
+                  // <h3>{user.name}</h3>
+                  // <p>{user.email}</p>
+                  // <p>{user.address.city}</p>
+                  // <p>{user.phone}</p> */}
+                )
+             }) : (<h3>Loading...</h3>)
+          }
+      </div>
+      
     </div>
   );
 }
