@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import NavBar from "./components/Navbar.js";
-import Accordion from 'react-bootstrap/Accordion';
+import Loading from "./components/Loading";
+import Users from "./components/users";
 
 function App() {
   const [users,setUsers] = useState(null);
@@ -19,20 +20,13 @@ function App() {
          { (users) ?
              users.map(user =>{
                 return (
-                  <Accordion defaultActiveKey="0">
-                    <Accordion.Item eventKey="0">
-                      <Accordion.Header>{user.name}</Accordion.Header>
-                      <Accordion.Body>
-                            {user.email}<br />{user.address.city}<br />{user.phone}
-                      </Accordion.Body>
-                    </Accordion.Item>
-                  </Accordion>
+                  <Users key={user.id} name={user.name} email={user.email} city={user.address.city} phone={user.phone}/>
                   // <h3>{user.name}</h3>
                   // <p>{user.email}</p>
                   // <p>{user.address.city}</p>
                   // <p>{user.phone}</p> */}
                 )
-             }) : (<h3>Loading...</h3>)
+             }) : (<Loading />)
           }
       </div>
       

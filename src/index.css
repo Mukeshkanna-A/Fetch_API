@@ -3,5 +3,7 @@ body {
   padding: 0;
   box-sizing: border-box;
   /* font-family: Verdana, Geneva, Tahoma, sans-serif;  */
+  text-align: center;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
